@@ -1,0 +1,6 @@
+const int idx = 1;
+int a[2] = {64, 65};
+int main() {
+  putch(a[idx]);
+  return 0;
+}
