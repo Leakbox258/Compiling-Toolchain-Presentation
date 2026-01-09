@@ -14,7 +14,7 @@
 - testcase: 基本测试集
 - toolchain: 存放编译器，汇编器和链接器
 # Makefile Args
-- `CC`: 指定编译器
+- `CCG`: 指定编译器
 - `ASM`: 指定汇编器
 - `LINKER`: 指定链接器
 - `TC`: 指定测例

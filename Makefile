@@ -1,3 +1,5 @@
+SHELL := /bin/bash
+
 TOOLCHAIN_DIR = ./toolchain
 TESTCASE_DIR = ./testcase
 BUILD_DIR = ./build
@@ -36,54 +38,54 @@ NVBOARD_TEST = nvboard_test
 CLI_TEST = cli_test
 
 $(ASM_FILE): $(BUILD_DIR)
-	@echo -e "\033[32m>>> Testing Compiling $(TC)...\033[0m"
+	@printf "\033[32m>>> Testing Compiling $(TC)...\033[0m\n"
 	@$(CCG) -S $(TESTCASE_SRC) -O1 -march=riscv64 --log none -o $(ASM_FILE)
-	@echo -e "\033[33m<<< Has Built $(ASM_FILE)\n\033[0m"
+	@printf "\033[33m<<< Has Built $(ASM_FILE)\n\033[0m\n"
 $(OBJ_FILE): $(ASM_FILE)
-	@echo -e "\033[32m>>> Testing Assemble $(TC)...\033[0m"
+	@printf "\033[32m>>> Testing Assemble $(TC)...\033[0m\n"
 	@$(ASM) -c $(ASM_FILE) -o $(OBJ_FILE)
-	@echo -e "\033[33m<<< Has Built $(OBJ_FILE)\n\033[0m"
+	@printf "\033[33m<<< Has Built $(OBJ_FILE)\n\033[0m\n"
 $(ELF_FILE): $(OBJ_FILE)
-	@echo -e "\033[32m>>> Testing Linking $(TC)...\033[0m"
+	@printf "\033[32m>>> Testing Linking $(TC)...\033[0m\n"
 	@$(LINKER) $(OBJ_FILE) $(SYLIB) -o $(ELF_FILE)
-	@echo -e "\033[33m<<< Has Built $(ELF_FILE)\n\033[0m"
+	@printf "\033[33m<<< Has Built $(ELF_FILE)\n\033[0m\n"
 $(QEMU_RUN): $(ELF_FILE)
-	@echo -e "\033[32m>>> Emulator Running...\033[0m"
+	@printf "\033[32m>>> Emulator Running...\033[0m\n"
 	-@$(QEMU) $(ELF_FILE) < $(TESTCASE_IN) > $(RESULT_OUT); \
 		DiffResult=$$?; \
 		if [ -s "$(RESULT_OUT)" ] && [ "$$(tail -c 1 $(RESULT_OUT))" != "$$(printf '\n')" ]; then \
-			echo -e "\n$$DiffResult" >> "$(RESULT_OUT)"; \
+			printf "\n$$DiffResult\n" >> "$(RESULT_OUT)"; \
 		else \
-			echo -e "$$DiffResult" >> "$(RESULT_OUT)"; \
+			printf "$$DiffResult\n" >> "$(RESULT_OUT)"; \
 		fi
 
-	@echo -e "\033[33m<<< Record $(RESULT_OUT)\n\033[0m"
+	@printf "\033[33m<<< Record $(RESULT_OUT)\n\033[0m\n"
 	
-	@echo -e "\033[32m>>> Result Diffing...\033[0m"
+	@printf "\033[32m>>> Result Diffing...\033[0m\n"
 	-@diff $(RESULT_OUT) $(TESTCASE_OUT); \
 		if [ $$? -eq 0 ]; then \
-			echo -e "\033[34m<<< Testcase $(TC) PASSED\n\033[0m"; \
+			printf "\033[34m<<< Testcase $(TC) PASSED\n\033[0m\n"; \
 		else \
-			echo -e "\033[31m<<< Testcase $(TC) FAILED\n\033[0m"; \
+			printf "\033[31m<<< Testcase $(TC) FAILED\n\033[0m\n"; \
 		fi
 $(QEMU_DEBUG): $(ELF_FILE)
-	@echo -e "\033[33m<<< Debuging $(TC)...\033[0m"
+	@printf "\033[33m<<< Debuging $(TC)...\033[0m\n"
 	@if [ $(GDB_PORT) -eq 1234 ]; then \
-		echo -e "\033[34m=== Prot Open On $(GDB_PORT), change GDB_PORT to specific others\033[0m"; \
+		printf "\033[34m=== Prot Open On $(GDB_PORT), change GDB_PORT to specific others\033[0m\n"; \
 	 else \
-		echo -e "\033[34m=== Prot Open On $(GDB_PORT)\033[0m"; \
+		printf "\033[34m=== Prot Open On $(GDB_PORT)\033[0m\n"; \
 	 fi
-	@echo -e "\033[31m=== Hint: open gdb or lldb and type 'target remote localhost:1234'"
+	@printf "\033[31m=== Hint: open gdb or lldb and type 'target remote localhost:1234'"
 	@$(QEMU) -g $(GDB_PORT) $(ELF_FILE) < $(TESTCASE_IN)
-	@echo -e "\033[32m>>> Prot Closed\033[0m"
+	@printf "\033[32m>>> Prot Closed\033[0m\n"
 $(NVBOARD_TEST):
-	@echo -e "\033[33m<<< Virtual FPGA Board Running...\033[0m"
+	@printf "\033[33m<<< Virtual FPGA Board Running...\033[0m\n"
 	@$(MAKE) -s -C $(SOFT_IP_CORE) ARCH=riscv64-npc ALL=$(TC) nvrun
-	@echo -e "\033[32m>>> Virtual FPGA Board Closed\033[0m"
+	@printf "\033[32m>>> Virtual FPGA Board Closed\033[0m\n"
 $(CLI_TEST):
-	@echo -e "\033[33m<<< CLI DebugMode Running...\033[0m"
+	@printf "\033[33m<<< CLI DebugMode Running...\033[0m\n"
 	@$(MAKE) -s -C $(SOFT_IP_CORE) ARCH=riscv64-npc ALL=$(TC) debug
-	@echo -e "\033[32m>>> CLI DebugMode End\033[0m"
+	@printf "\033[32m>>> CLI DebugMode End\033[0m\n"
 
 # Test Compiling Toolchain With Emulator
 compile: $(ASM_FILE)
