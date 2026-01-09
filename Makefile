@@ -1,7 +1,7 @@
 TOOLCHAIN_DIR = ./toolchain
 TESTCASE_DIR = ./testcase
 BUILD_DIR = ./build
-SOFT_IP_CORE = ./RISCV64i-softIPcore
+SOFT_IP_CORE = ./riscv64i-softIPcore
 
 # Tool Chain
 CCG ?= $(TOOLCHAIN_DIR)/gnalc

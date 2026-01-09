@@ -12,7 +12,7 @@
 - lib/sylib.o: SysY 的依赖库文件
 - RISCV64i-softIPcore: 指向`riscv64i`工程文件夹的软链接文件夹
 - testcase: 基本测试集
-- toolchain: 放编译器，汇编器和链接器
+- toolchain: 存放编译器，汇编器和链接器
 # Makefile Args
 - `CC`: 指定编译器
 - `ASM`: 指定汇编器
