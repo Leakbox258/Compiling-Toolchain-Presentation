@@ -31,5 +31,7 @@
 # Dependencies And SoftWare
 请参见 [gnalc](https://github.com/0x676e616c63/gnalc) 和 [riscv64i](https://github.com/Leakbox258/riscv64i)
 # Warning
-`ToolChain` 和 `RISCV64i-softIPcore` 中的内容均为作者本地构建完成，可能会对复现造成一定困难。<br>
-由于综合和烧写工具闭源，开发板上的测试难以集成至测试脚本中，需要手动进行相关工作。
+- `ToolChain` 和 `RISCV64i-softIPcore` 中的内容均为作者本地构建完成，可能会对复现造成一定困难
+- 为了避免对系统本身动态库的依赖，打包了依赖库，同时对工具链的依赖路径进行修改
+- 接上，由于依赖路径被修改为相对路径，故对`ToolChain`的调用必须在该项目的顶级路径下进行
+- 由于综合和烧写工具闭源，开发板上的测试难以集成至测试脚本中，需要手动进行相关工作。

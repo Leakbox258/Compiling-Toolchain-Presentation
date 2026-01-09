@@ -4,7 +4,7 @@ BUILD_DIR = ./build
 SOFT_IP_CORE = ./RISCV64i-softIPcore
 
 # Tool Chain
-CC ?= $(TOOLCHAIN_DIR)/gnalc
+CCG ?= $(TOOLCHAIN_DIR)/gnalc
 ASM ?= $(TOOLCHAIN_DIR)/riscv-as
 # LINKER = $(TOOLCHAIN_DIR)/linker
 LINKER ?= /usr/bin/riscv64-linux-gnu-gcc
@@ -37,7 +37,7 @@ CLI_TEST = cli_test
 
 $(ASM_FILE): $(BUILD_DIR)
 	@echo -e "\033[32m>>> Testing Compiling $(TC)...\033[0m"
-	@$(CC) -S $(TESTCASE_SRC) -O1 -march=riscv64 --log none -o $(ASM_FILE)
+	@$(CCG) -S $(TESTCASE_SRC) -O1 -march=riscv64 --log none -o $(ASM_FILE)
 	@echo -e "\033[33m<<< Has Built $(ASM_FILE)\n\033[0m"
 $(OBJ_FILE): $(ASM_FILE)
 	@echo -e "\033[32m>>> Testing Assemble $(TC)...\033[0m"
@@ -62,9 +62,9 @@ $(QEMU_RUN): $(ELF_FILE)
 	@echo -e "\033[32m>>> Result Diffing...\033[0m"
 	-@diff $(RESULT_OUT) $(TESTCASE_OUT); \
 		if [ $$? -eq 0 ]; then \
-			echo -e "\033[34m<<< Testcase `$(TC)` PASSED\n\033[0m"; \
+			echo -e "\033[34m<<< Testcase $(TC) PASSED\n\033[0m"; \
 		else \
-			echo -e "\033[31m<<< Testcase `$(TC)` FAILED\n\033[0m"; \
+			echo -e "\033[31m<<< Testcase $(TC) FAILED\n\033[0m"; \
 		fi
 $(QEMU_DEBUG): $(ELF_FILE)
 	@echo -e "\033[33m<<< Debuging $(TC)...\033[0m"
