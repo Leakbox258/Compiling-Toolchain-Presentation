@@ -3,6 +3,7 @@
 # ToolChain
 - `gnalc`: 能进行高度优化的编译器，本次将主要展示`riscv64-gc`后端
 - `riscv-as`: 可配置可拓展的汇编器，现已支持`riscv64-gc`所有指令
+- `linker`: `riscv` 专用链接器
 - `riscv64i`: 软核CPU，支持`riscv64-i`裸机程序运行
 # Runtime
 - `qemu-riscv64-static`: Linux用户态`riscv`模拟器
@@ -28,8 +29,8 @@
 - `link`: 测试编译器、汇编器和链接器
 - `run`: 通过模拟器测试工具链正确性
 - `debug`: 通过模拟器和调试器对ELF进行调试
-- `sim`: 进行带有GUI的`SystemVerilog`仿真
-- `sim-debug`: 进行CLI下的`SystemVerilog`单步调试
+- `sim`: 进行带有GUI的`SystemVerilog`仿真（需要自行配置`riscv64i`）
+- `sim-debug`: 进行CLI下的`SystemVerilog`单步调试（需要自行配置`riscv64i`）
 # Dependencies And SoftWare
 请参见 [gnalc](https://github.com/0x676e616c63/gnalc) 和 [riscv64i](https://github.com/Leakbox258/riscv64i)
 # 3rd-party
