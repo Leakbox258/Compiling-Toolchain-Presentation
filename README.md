@@ -36,7 +36,7 @@
 # 3rd-party
 - `github.com/0x676e616c63/gnalc`
 - `github.com/0x676e616c63/riscv-as`
-- `github.com/Althra/linker`
+- `github.com/0x676e616c63/linker`
 - `github.com/Leakbox258/riscv64i`
 # Warning
 - `ToolChain` 和 `RISCV64i-softIPcore` 中的内容均为作者本地构建完成，可能会对复现造成一定困难
