@@ -9,10 +9,11 @@
 - `verilator`: `SystemVerilog`仿真工具，搭配其他GUI工具
 - `DE2-115`: 用于实机测试的`FPGA`开发板
 # Files And Dirs
-- lib/sylib.o: SysY 的依赖库文件
+- lib: 依赖库文件, `sylib_standalone.o` 库实现比较简单，并且没有计时相关的函数体。
 - RISCV64i-softIPcore: 指向`riscv64i`工程文件夹的软链接文件夹
-- testcase: 基本测试集
-- toolchain: 存放编译器，汇编器和链接器
+- testcase: 测试集
+- toolchain: 存放编译器，汇编器和链接器 ELF 文件
+- glibc: 存放 `toolchain` 的依赖库和加载器，来自于 Fedora 42
 # Makefile Args
 - `CCG`: 指定编译器
 - `ASM`: 指定汇编器
@@ -20,6 +21,7 @@
 - `TC`: 指定测例
 - `QEMU`: 指定模拟器
 - `GDB_PORT`: 指定调试时的`gdbserver`开放端口
+- `SYLIB`: 指定测例在`lib/`中的依赖库
 # Makefile Cmd
 - `compile`: 仅测试编译器
 - `assemble`: 测试编译器和汇编器
@@ -30,8 +32,13 @@
 - `sim-debug`: 进行CLI下的`SystemVerilog`单步调试
 # Dependencies And SoftWare
 请参见 [gnalc](https://github.com/0x676e616c63/gnalc) 和 [riscv64i](https://github.com/Leakbox258/riscv64i)
+# 3rd-party
+- `github.com/0x676e616c63/gnalc`
+- `github.com/0x676e616c63/riscv-as`
+- `github.com/Althra/linker`
+- `github.com/Leakbox258/riscv64i`
 # Warning
 - `ToolChain` 和 `RISCV64i-softIPcore` 中的内容均为作者本地构建完成，可能会对复现造成一定困难
 - 为了避免对系统本身动态库的依赖，打包了依赖库，同时对工具链的依赖路径进行修改
-- 接上，由于依赖路径被修改为相对路径，故对`ToolChain`的调用必须在该项目的顶级路径下进行
+- 接上，由于依赖路径被修改为相对路径，故对`ToolChain`的调用必须在该项目的顶级路径下进行，建议通过 `make` 进行使用
 - 由于综合和烧写工具闭源，开发板上的测试难以集成至测试脚本中，需要手动进行相关工作。

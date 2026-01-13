@@ -8,12 +8,12 @@ SOFT_IP_CORE = ./riscv64i-softIPcore
 # Tool Chain
 CCG ?= $(TOOLCHAIN_DIR)/gnalc
 ASM ?= $(TOOLCHAIN_DIR)/riscv-as
-LINKER = $(TOOLCHAIN_DIR)/linker
+LINKER ?= $(TOOLCHAIN_DIR)/linker
 QEMU ?= qemu-riscv64-static
 
 # Share Lib
-SYLIB = ./lib/sylib_standalone.o
-# SYLIB = ./lib/sylib.o
+SYLIB ?= ./lib/sylib_standalone.o
+# SYLIB ?= ./lib/sylib.o
 
 # Single Testcase
 TC ?= dummy
